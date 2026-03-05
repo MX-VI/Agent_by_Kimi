@@ -3,6 +3,7 @@
 支持 JavaScript 渲染
 """
 import re
+import sys
 import requests
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse
@@ -71,7 +72,7 @@ class WebTool:
                 return html
                 
         except ImportError:
-            return "❌ 错误：Playwright 未安装。运行：pip install playwright && playwright install chromium"
+            return None  # 返回 None 表示需要回退到普通请求
         except Exception as e:
             return f"❌ 渲染页面时出错：{str(e)}"
     
@@ -131,19 +132,26 @@ class WebTool:
     def summarize_webpage(self, url: str, use_js: bool = True) -> str:
         """
         获取并返回网页内容
-        use_js=True 时使用 Playwright 渲染 JavaScript（推荐用于现代网站）
+        use_js=True 时尝试使用 Playwright 渲染 JavaScript（推荐用于现代网站）
         """
+        html = None
+        is_js_rendered = False
+        
+        # 如果允许使用 JS，先尝试
         if use_js:
             html = self.fetch_with_js(url)
-            if html.startswith("❌") and "Playwright 未安装" in html:
-                # 回退到普通请求
+            if html is None:
+                # Playwright 未安装，回退到普通请求
                 html = self.fetch_url(url)
                 is_js_rendered = False
-            else:
+            elif not html.startswith("❌"):
                 is_js_rendered = True
+            else:
+                # JS 渲染出错，尝试普通请求
+                html = self.fetch_url(url)
+                is_js_rendered = False
         else:
             html = self.fetch_url(url)
-            is_js_rendered = False
         
         if html.startswith("❌"):
             return html
@@ -153,7 +161,10 @@ class WebTool:
         # 如果内容太少，可能是 JS 渲染网站但用普通方式获取了
         if len(content) < 200 and not is_js_rendered:
             return "⚠️ 提示：该网站可能需要 JavaScript 渲染。\n" \
-                   "请安装 Playwright：pip install playwright && playwright install chromium\n\n" + content
+                   "如需访问动态网站，请安装 Playwright：\n" \
+                   f"  {sys.executable} -m pip install playwright\n" \
+                   f"  {sys.executable} -m playwright install chromium\n\n" \
+                   "当前获取到的内容：\n" + content
         
         return content
 
