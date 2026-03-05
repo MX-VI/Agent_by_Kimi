@@ -53,6 +53,7 @@ python main.py
 | `@write:路径\n内容` | 写入文件 | `@write:C:\test.txt\nHello World` |
 | `@list:路径` | 列出目录 | `@list:C:\Users` |
 | `@web:URL` | 访问并总结网页 | `@web:https://example.com` |
+| `@cmd:命令` | 执行系统命令 | `@cmd:ipconfig`, `@cmd:dir` |
 
 ### JavaScript 渲染网站
 
@@ -116,3 +117,26 @@ ai-agent/
 - 网页访问需要网络连接
 - API 调用会产生费用，请注意使用量
 - 推荐使用 **Tkinter 版本** 避免依赖问题
+- **系统命令** (`@cmd:`) 请谨慎使用，已内置危险命令拦截保护
+
+### 系统命令安全说明
+
+Agent 支持执行系统命令 (`@cmd:命令`)，但有以下安全保护：
+
+**完全禁止的危险命令：**
+- `rm -rf /` 等破坏性命令
+- `format` 等格式化命令
+- `dd if=... of=/dev/...` 等磁盘操作
+
+**使用建议：**
+- 仅使用只读命令（如 `ipconfig`, `dir`, `systeminfo`）
+- 避免使用修改系统或删除文件的命令
+- 执行前请确认命令安全性
+
+**常用安全命令示例：**
+```
+@cmd:ipconfig              - 查看网络配置
+@cmd:dir C:\\Users          - 列出目录
+@cmd:systeminfo            - 查看系统信息
+@cmd:tasklist              - 查看进程列表
+```
