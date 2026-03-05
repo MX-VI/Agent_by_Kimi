@@ -7,7 +7,7 @@
 - 🤖 基于 DeepSeek AI 的智能对话
 - 📁 本地文件操作（读/写/列目录）
 - 🌐 网页访问和内容总结
-- 🖥️ 美观的图形化界面
+- 🖥️ 两种图形界面可选（Gradio / Tkinter）
 - ⚙️ 支持自定义配置
 
 ## 安装步骤
@@ -17,19 +17,28 @@
 - Windows 10/11
 
 ### 2. 安装依赖
+
+**方案 A：使用 Tkinter 界面（推荐，无需额外安装）**
+```bash
+pip install -r requirements_minimal.txt
+```
+
+**方案 B：使用 Gradio 界面（需要额外依赖）**
 ```bash
 pip install -r requirements.txt
 ```
 
-### 3. 安装 Playwright 浏览器（用于访问现代网站）
-```bash
-playwright install chromium
-```
-
-### 4. 配置 API Key
+### 3. 配置 API Key
 编辑 `config.py` 文件，设置你的 DeepSeek API Key（已预填）。
 
-### 5. 运行
+### 4. 运行
+
+**Tkinter 版本（轻量级）：**
+```bash
+python main_tkinter.py
+```
+
+**Gradio 版本（网页界面）：**
 ```bash
 python main.py
 ```
@@ -72,19 +81,38 @@ Agent: 已保存到 C:\Users\MyName\Desktop\...
 
 ```
 ai-agent/
-├── main.py           # 主程序入口
-├── agent.py          # Agent 核心逻辑
-├── config.py         # 配置文件
-├── requirements.txt  # 依赖列表
-├── README.md         # 说明文档
+├── main.py                 # Gradio 界面版本
+├── main_tkinter.py         # Tkinter 界面版本（无需 gradio）
+├── agent.py                # Agent 核心逻辑
+├── config.py               # 配置文件
+├── requirements.txt        # Gradio 版本依赖
+├── requirements_minimal.txt # 最小依赖（Tkinter 版本）
+├── README.md               # 说明文档
+├── check_env.py            # 环境检查脚本
+├── TROUBLESHOOTING.md      # 问题排查指南
 └── tools/
     ├── __init__.py
-    ├── file_tool.py  # 文件操作工具
-    └── web_tool.py   # 网页访问工具
+    ├── file_tool.py        # 文件操作工具
+    └── web_tool.py         # 网页访问工具
 ```
+
+## 界面选择
+
+### Tkinter 版本（推荐）
+- ✅ Python 内置，无需额外安装
+- ✅ 轻量级，启动快
+- ✅ 稳定可靠
+- ⚠️ 界面相对简洁
+
+### Gradio 版本
+- ✅ 美观的网页风格界面
+- ✅ 支持 Markdown 渲染
+- ⚠️ 需要安装 gradio 和相关依赖
+- ⚠️ 可能遇到 greenlet 编译问题
 
 ## 注意事项
 
 - 文件操作请确保有相应权限
 - 网页访问需要网络连接
 - API 调用会产生费用，请注意使用量
+- 推荐使用 **Tkinter 版本** 避免依赖问题
