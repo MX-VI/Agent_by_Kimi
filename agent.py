@@ -10,7 +10,7 @@ from tools import FileTool, WebTool, CommandTool
 
 
 # 全局超时设置（秒）
-OPERATION_TIMEOUT = 10
+OPERATION_TIMEOUT = 30
 
 
 class TimeoutError(Exception):
