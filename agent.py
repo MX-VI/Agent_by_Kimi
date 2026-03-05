@@ -3,11 +3,10 @@ AI Agent 核心逻辑 - 带超时控制
 """
 import re
 import sys
-import threading
 import concurrent.futures
 from openai import OpenAI
 import config
-from tools import FileTool, WebTool
+from tools import FileTool, WebTool, CommandTool
 
 
 # 全局超时设置（秒）
@@ -53,6 +52,7 @@ class AIAgent:
         )
         self.file_tool = FileTool()
         self.web_tool = WebTool()
+        self.command_tool = CommandTool()
         self.conversation_history = []
         
         # 系统提示词
@@ -67,6 +67,9 @@ class AIAgent:
 
 2. 网页访问：
    - @web:URL - 访问网页并获取内容
+
+3. 系统命令（谨慎使用）：
+   - @cmd:命令 - 执行系统命令（如 @cmd:dir, @cmd:ipconfig）
 
 当检测到工具命令时，先执行工具，然后将结果整合到回复中。
 如果用户要求总结网页内容，使用 @web:URL 获取内容后，提供简洁的总结。
@@ -111,6 +114,15 @@ class AIAgent:
             result = self.file_tool.list_directory(dir_path)
             tool_results.append(f"【目录列表结果】\n{result}")
             processed_message = processed_message.replace(f"@list:{dir_path}", f"[已列出目录: {dir_path}]")
+        
+        # 检测 @cmd:命令
+        cmd_pattern = r'@cmd:(.+?)(?=\n|$|@)'
+        cmd_matches = re.findall(cmd_pattern, user_message)
+        for command in cmd_matches:
+            command = command.strip()
+            result = self.command_tool.execute(command, timeout=OPERATION_TIMEOUT)
+            tool_results.append(f"【系统命令结果】\n{result}")
+            processed_message = processed_message.replace(f"@cmd:{command}", f"[已执行命令: {command}]")
         
         return processed_message, tool_results
     
