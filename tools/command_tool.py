@@ -58,7 +58,7 @@ class CommandTool:
         return False, ""
     
     @staticmethod
-    def execute(command: str, timeout: int = 10) -> str:
+    def execute(command: str, timeout: int = 30) -> str:
         """
         执行系统命令
         
