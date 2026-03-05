@@ -266,8 +266,8 @@ class AIAgent:
                     OPERATION_TIMEOUT,
                     full_prompt
                 )
-                self._think("🎉 处理完成", "消息处理完成")
-                return ai_response
+                self._think("🎉 处理完成", "消息处理完毕")
+                return ai_response + "\n\n---\n✅ 完毕"
                 
             except TimeoutError:
                 self._think("❌ 超时", f"AI API 调用超过 {OPERATION_TIMEOUT} 秒")
