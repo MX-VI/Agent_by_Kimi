@@ -10,7 +10,7 @@ MAX_TOKENS = 4096
 TEMPERATURE = 0.7
 
 # 网页访问配置
-WEB_TIMEOUT = 30  # 秒
+WEB_TIMEOUT = 10  # 秒，与Agent操作超时保持一致
 USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.0"
 
 # UI 配置
@@ -18,3 +18,6 @@ WINDOW_TITLE = "🤖 AI Agent - DeepSeek"
 WINDOW_WIDTH = 1200
 WINDOW_HEIGHT = 800
 THEME = "default"  # gradio 主题
+
+# 操作超时配置（秒）
+OPERATION_TIMEOUT = 10
