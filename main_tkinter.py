@@ -45,7 +45,7 @@ class AIAgentGUI:
         
         ttk.Label(
             header_frame,
-            text="支持命令: @read:路径  @write:路径\\n内容  @list:路径  @web:URL",
+            text="支持命令: @read:路径  @write:路径\\n内容  @list:路径  @web:URL  @cmd:命令",
             font=("微软雅黑", 10),
             foreground="gray"
         ).pack(anchor=tk.W, pady=(5, 0))
@@ -112,6 +112,12 @@ class AIAgentGUI:
             shortcut_frame,
             text="🌐 示例：访问网页",
             command=lambda: self.set_input("总结一下 @web:https://www.deepseek.com")
+        ).pack(side=tk.LEFT, padx=(0, 5))
+        
+        ttk.Button(
+            shortcut_frame,
+            text="⚡ 示例：系统命令",
+            command=lambda: self.set_input("@cmd:ipconfig")
         ).pack(side=tk.LEFT)
     
     def set_input(self, text):
