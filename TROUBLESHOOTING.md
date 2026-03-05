@@ -10,7 +10,47 @@
 
 ## 快速诊断
 
+### 命令行用户
 在 ai-agent 目录下运行 `check_env.bat`，查看输出。
+
+### PyCharm 用户
+右键运行 `check_env.py`，查看控制台输出。
+
+## PyCharm 使用指南
+
+### 1. 打开项目
+- 打开 PyCharm
+- File → Open → 选择 ai-agent 文件夹
+
+### 2. 配置 Python 解释器
+- File → Settings → Project: ai-agent → Python Interpreter
+- 点击齿轮图标 → Add
+- 选择 System Interpreter → 选择你的 Python 路径（如 `J:\PYTHON\python.exe`）
+- 点击 OK
+
+### 3. 检查环境
+- 在项目视图中找到 `check_env.py`
+- 右键 → Run 'check_env'
+- 查看运行结果，根据提示修复问题
+
+### 4. 安装依赖
+如果 check_env 提示缺少依赖：
+
+**方法一：使用 PyCharm 终端**
+```
+底部工具栏 → Terminal → 输入:
+python -m pip install -r requirements.txt
+```
+
+**方法二：使用 PyCharm 包管理器**
+```
+File → Settings → Project → Python Interpreter
+点击 + 号 → 搜索需要的包 → Install Package
+```
+
+### 5. 运行程序
+- 右键 `main.py` → Run 'main'
+- 或点击右上角运行按钮
 
 ## 常见情况及解决方案
 
