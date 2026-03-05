@@ -1,10 +1,12 @@
-# 核心依赖（纯 Python，无需编译）
+# 完整依赖配置（Gradio 版本）
+# 使用 main.py 运行
+# 如果遇到 greenlet 编译问题，请使用 requirements_minimal.txt + main_tkinter.py
+
 openai>=1.0.0
 requests>=2.31.0
 beautifulsoup4>=4.12.0
 gradio>=4.0.0
 markdown>=3.5.0
 
-# 可选依赖（Windows 可能需要预编译版本或 Visual C++ 编译器）
-# 如果安装失败，运行 fix_greenlet.bat
+# 可选：网页渲染支持
 playwright>=1.40.0
