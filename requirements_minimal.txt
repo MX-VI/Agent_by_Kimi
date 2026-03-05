@@ -1,0 +1,10 @@
+# 最小依赖配置（Tkinter 版本）
+# 使用 main_tkinter.py 运行，无需安装 gradio
+
+openai>=1.0.0
+requests>=2.31.0
+beautifulsoup4>=4.12.0
+markdown>=3.5.0
+
+# 可选：网页渲染支持（如需访问 JS 网站则安装）
+# playwright>=1.40.0
