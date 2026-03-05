@@ -1,6 +1,10 @@
+# 核心依赖（纯 Python，无需编译）
 openai>=1.0.0
 requests>=2.31.0
 beautifulsoup4>=4.12.0
 gradio>=4.0.0
 markdown>=3.5.0
+
+# 可选依赖（Windows 可能需要预编译版本或 Visual C++ 编译器）
+# 如果安装失败，运行 fix_greenlet.bat
 playwright>=1.40.0
